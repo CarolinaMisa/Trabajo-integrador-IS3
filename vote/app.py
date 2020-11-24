@@ -9,10 +9,10 @@ option_a = os.getenv('OPTION_A', "Cats")
 option_b = os.getenv('OPTION_B', "Dogs")
 hostname = socket.gethostname()
 
-PORT = int(os.environ.get("PORT", 5000))
-REDIS_PASSWORD= os.environ.get('REDIS_PASSWORD', 'pass')
-REDIS_HOST= os.environ.get('REDIS_HOST', 'host')
-REDIS_PORT= os.environ.get('REDIS_PORT', '5000')
+PORT = int(os.environ.get("PORT"))
+REDIS_PASSWORD= os.environ.get('REDIS_PASSWORD')
+REDIS_HOST= os.environ.get('REDIS_HOST')
+REDIS_PORT= os.environ.get('REDIS_PORT')
 
 app = Flask(__name__)
 
