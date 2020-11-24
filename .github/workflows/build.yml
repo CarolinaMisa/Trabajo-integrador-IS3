@@ -115,7 +115,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:release -a tp-vote web 
 
-deployWorker:
+  deployWorker:
     name: Deploy Worker in Heroku
     runs-on: ubuntu-latest
     steps:
