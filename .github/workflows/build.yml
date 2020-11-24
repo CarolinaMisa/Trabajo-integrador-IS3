@@ -165,4 +165,3 @@ jobs:
             files: Integration/results-Junit/result.xml
             report_individual_runs: true
             deduplicate_classes_by_file_name: false
-
