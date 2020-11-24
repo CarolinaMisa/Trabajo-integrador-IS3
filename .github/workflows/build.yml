@@ -2,8 +2,7 @@ name: Build
 
 on:
   push: main
-    tags:
-      - 'v*.*.*'
+
 
 jobs:
   result_build:
