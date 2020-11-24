@@ -138,3 +138,30 @@ jobs:
           env:
             HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           run: heroku container:release -a tp-worker web 
+ 
+  integrationTest:
+      name: Integration Test
+      runs-on: ubuntu-latest
+      needs: [deployResult, deployVote, deployWorker]
+      steps:
+        - uses: actions/checkout@v2
+        - name: Building node modules
+          run: |
+            cd ./Integration
+            npm install
+        - name: Running integration tests
+          run: |
+            cd ./Integration
+            npx codeceptjs run --steps --reporter mocha-multi
+        - name: Publish Integration Test Results
+          uses: EnricoMi/publish-unit-test-result-action@v1.4
+          if: ${{ always() }}
+          with:
+            github_token: ${{ secrets.GIT_TOKEN }}
+            check_name: Integration Test Result
+            comment_title: Integration Test Statistics
+            hide_comments: all but latest
+            comment_on_pr: true
+            files: ./Integration/results-Junit/result.xml
+            report_individual_runs: true
+            deduplicate_classes_by_file_name: false
