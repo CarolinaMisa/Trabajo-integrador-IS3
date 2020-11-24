@@ -16,7 +16,7 @@ REDIS_PORT= os.environ.get('REDIS_PORT', '5001')
 
 app = Flask(__name__)
 
-def get_redis(REDIS_HOST, REDIS_PASSWORD, REDIS_PORT):
+def get_redis(REDIS_HOST, REDIS_PASS, REDIS_PORT):
     if not hasattr(g, 'redis'):
         try:
             g.redis = Redis(

@@ -8,36 +8,33 @@ on:
     branches: [ main ]
 
 jobs:
-  vote_build:
-    name: Check Code Quality, Build, Test and Push Vote
+  deployVote:
+    name: Deploy Vote in Heroku
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Login to Heroku Container registry
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login 
 
-      - name: Check code quality
-        uses: codeinspectorio/github-action@master
-        with:
-          repo_token: ${{ secrets.GIT_TOKEN }}
-          code_inspector_access_key: ${{ secrets.CODE_INSPECTOR_ACCESS_KEY }}
-          code_inspector_secret_key: ${{ secrets.CODE_INSPECTOR_SECRET_KEY }}
-          min_quality_grade: 'WARNING'
-          min_quality_score: '0'
-          max_complex_functions_rate: '0.1'
-          max_long_functions_rate: '0.1'
-          max_defects_rate: '0.1'
-          max_violations_rate: '0.1'
+      - name: Setting Vars
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku config:set REDIS_PORT=${{ secrets.REDIS_PORT }} -a tp-vote
+          heroku config:set REDIS_HOST=${{ secrets.REDIS_HOST }} -a tp-vote
+          heroku config:set REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} -a tp-vote
 
-      - name: DockerHub Login
+      - name: Build and Push
         env:
-          DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - name: Build Docker Image
-        run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/vote ./vote
-      - name: Push to Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/vote
+          cd ./vote
+          heroku container:push -a tp-vote web
+
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release -a tp-vote web 
