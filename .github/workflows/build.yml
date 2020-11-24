@@ -85,66 +85,66 @@ jobs:
 
 
   deployVote:
-    name: Deploy Vote in Heroku
-    runs-on: ubuntu-latest
+      name: Deploy Vote in Heroku
+      runs-on: ubuntu-latest
     
-    steps:
-      - uses: actions/checkout@v2
-      - name: Login to Heroku Container registry
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login 
+      steps:
+        - uses: actions/checkout@v2
+        - name: Login to Heroku Container registry
+          env: 
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: heroku container:login 
 
-      - name: Setting Vars
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku config:set REDIS_PORT=${{ secrets.REDIS_PORT }} -a tp-vote
-          heroku config:set REDIS_HOST=${{ secrets.REDIS_HOST }} -a tp-vote
-          heroku config:set REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} -a tp-vote
+        - name: Setting Vars
+          env: 
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: |
+            heroku config:set REDIS_PORT=${{ secrets.REDIS_PORT }} -a tp-vote
+            heroku config:set REDIS_HOST=${{ secrets.REDIS_HOST }} -a tp-vote
+            heroku config:set REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} -a tp-vote
 
-      - name: Build and Push
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          cd ./vote
-          heroku container:push -a tp-vote web
+        - name: Build and Push
+          env:
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: |
+            cd ./vote
+            heroku container:push -a tp-vote web
 
-      - name: Release
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release -a tp-vote web 
+        - name: Release
+          env:
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: heroku container:release -a tp-vote web 
 
   deployWorker:
-    name: Deploy Worker in Heroku
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Login to Heroku Container registry
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login
-          
-      - name: Setting Vars
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku config:set POSTGRES_URI=${{ secrets.POSTGRES_URI }} -a tp-worker
-          heroku config:set REDIS_PORT=${{ secrets.REDIS_PORT }} -a tp-worker
-          heroku config:set REDIS_HOST=${{ secrets.REDIS_HOST }} -a tp-worker
-          heroku config:set REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} -a tp-worker
-     
-      - name: Build and Push
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          cd ./worker
-          heroku container:push -a tp-worker web
+      name: Deploy Worker in Heroku
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
 
-      - name: Release
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release -a tp-worker web 
+        - name: Login to Heroku Container registry
+          env: 
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: heroku container:login
+
+        - name: Setting Vars
+          env: 
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: |
+            heroku config:set POSTGRES_URI=${{ secrets.POSTGRES_URI }} -a tp-worker
+            heroku config:set REDIS_PORT=${{ secrets.REDIS_PORT }} -a tp-worker
+            heroku config:set REDIS_HOST=${{ secrets.REDIS_HOST }} -a tp-worker
+            heroku config:set REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} -a tp-worker
+
+        - name: Build and Push
+          env:
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: |
+            cd ./worker
+            heroku container:push -a tp-worker web
+
+        - name: Release
+          env:
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: heroku container:release -a tp-worker web 
 
   
