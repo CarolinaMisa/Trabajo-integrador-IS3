@@ -11,9 +11,9 @@ RUN pip install -r requirements.txt
 # Copy our code from the current folder to /app inside the container
 ADD . /app
 
-ENV PORT=5000
+ENV PORT=6379
 # Make port 80 available for links and/or publish
-EXPOSE 5000
+EXPOSE 6379
 
 
 # Define our command to be run when launching the container
