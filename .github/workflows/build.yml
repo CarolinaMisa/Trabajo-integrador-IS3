@@ -41,7 +41,7 @@ jobs:
       - name: Build Vote Docker Image With Version
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/vote:${{ env.RELEASE_VERSION }} -t ${{ secrets.DOCKERHUB_USERNAME }}/vote:latest  ./vote
-      - name: Push Result to Docker Hub
+      - name: Push Vote to Docker Hub
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/vote
      
