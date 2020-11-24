@@ -9,51 +9,29 @@ on:
 
 jobs:
   deployResult:
-    name: Check Code Quality, Build, Test And Push Result
-    runs-on: ubuntu-latest
+      name: Deploy Result in Heroku
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Login to Heroku Container registry
+          env: 
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: heroku container:login 
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+        - name: Setting Vars
+          env: 
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: |
+            heroku config:set POST_URI=${{ secrets.POSTGRES_URI }} -a tp-result
 
-      - name: Check code quality
-        uses: codeinspectorio/github-action@master
-        with:
-          repo_token: ${{ secrets.GIT_TOKEN }}
-          code_inspector_access_key: ${{ secrets.CODE_INSPECTOR_ACCESS_KEY }}
-          code_inspector_secret_key: ${{ secrets.CODE_INSPECTOR_SECRET_KEY }}
-          min_quality_grade: 'WARNING'
-          min_quality_score: '0'
-          max_complex_functions_rate: '0.1'
-          max_long_functions_rate: '0.1'
-          max_defects_rate: '0.1'
-          max_violations_rate: '0.1'
+        - name: Build and Push
+          env:
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: |
+            cd ./result
+            heroku container:push -a tp-result web
 
-    deployVote:
-      deployResult:
-      - name: Deploy Result in Heroku
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v2
-          - name: Login to Heroku Container registry
-            env: 
-              HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-            run: heroku container:login 
-
-          - name: Setting Vars
-            env: 
-              HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-            run: |
-              heroku config:set POST_URI=${{ secrets.POSTGRES_URI }} -a tp-result
-
-          - name: Build and Push
-            env:
-              HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-            run: |
-              cd ./result
-              heroku container:push -a tp-result web
-
-          - name: Release
-            env:
-              HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-            run: heroku container:release -a tp-result web 
+        - name: Release
+          env:
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          run: heroku container:release -a tp-result web 
