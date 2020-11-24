@@ -2,16 +2,33 @@ package worker;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.exceptions.JedisConnectionException;
+
 import java.sql.*;
 import org.json.JSONObject;
 
-
-
 class Worker {
+
+  private static String POSTGRES_HOST = System.getenv("POST_HOST");
+
+  private static String POSTGRES_DB = System.getenv("POSTGRES_DB");
+
+  private static String POSTGRES_PASSWORD = System.getenv("POSTGRES_PASSWORD");
+
+  private static String POSTGRES_PORT = System.getenv("POSTGRES_PORT");
+
+  private static String POSTGRES_USER = System.getenv("POSTGRES_USER");
+
+  private static String REDIS_HOST = System.getenv("REDIS_HOST");
+
+  private static String REDIS_PASSWORD = System.getenv("REDIS_PASSWORD");
+
+  private static String REDIS_PORT = System.getenv("REDIS_PORT");
+
   public static void main(String[] args) {
     try {
-      Jedis redis = connectToRedis();
-      Connection dbConn = connectToDB(System.getenv("POSTGRES_HOST"));
+      String URL_Redis = strConnectionRedis();
+      Jedis redis = connectToRedis(new Jedis(URL_Redis));
+      Connection dbConn = connectToDB(POSTGRES_HOST);
 
       System.err.println("Watching vote queue");
 
@@ -47,9 +64,23 @@ class Worker {
     }
   }
 
-  private static Jedis connectToRedis() {
-    Jedis jedis = new Jedis(System.getenv("REDIS_URL"));
-    return jedis;
+  public static String strConnectionRedis() {
+    return "redis://default:" + REDIS_PASSWORD + "@" + REDIS_HOST + ":" + REDIS_PORT;
+  }
+
+  static Jedis connectToRedis(Jedis conn) {
+    while (true) {
+      try {
+        conn.keys("*");
+        break;
+      } catch (JedisConnectionException e) {
+        System.err.println("Waiting for redis");
+        sleep(1000);
+      }
+    }
+
+    System.err.println("Connected to redis");
+    return conn;
   }
 
   static Connection connectToDB(String host) throws SQLException {
@@ -58,11 +89,11 @@ class Worker {
     try {
 
       Class.forName("org.postgresql.Driver");
-      String url = "jdbc:postgresql://" + host + "/postgres";
+      String url = strConnectionPostgres();
 
       while (conn == null) {
         try {
-          conn = DriverManager.getConnection(url, System.getenv("POSTGRES_USER"), System.getenv("POSTGRES_PASS"));
+          conn = DriverManager.getConnection(url, System.getenv("POSTGRES_USER"), System.getenv("POSTGRES_PASSWORD"));
         } catch (SQLException e) {
           System.err.println("Waiting for db");
           sleep(1000);
@@ -80,6 +111,11 @@ class Worker {
 
     System.err.println("Connected to db");
     return conn;
+  }
+
+  public static String strConnectionPostgres() {
+    return "jdbc:postgresql://" + POSTGRES_HOST + ":" + POSTGRES_PORT + "/" + POSTGRES_DB + "?user=" + POSTGRES_USER + "&password="
+        + POSTGRES_PASSWORD + "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
   }
 
   static void sleep(long duration) {
