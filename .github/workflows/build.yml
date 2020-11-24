@@ -155,7 +155,7 @@ jobs:
             npx codeceptjs run --reporter mocha-multi
         - name: Publish Integration Test Results
           uses: EnricoMi/publish-unit-test-result-action@v1.4
-          if: ${{ always() }}
+          if: always()
           with:
             github_token: ${{ secrets.GIT_TOKEN }}
             files: Integration/results-Junit/result.xml
