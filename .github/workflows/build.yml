@@ -152,7 +152,7 @@ jobs:
         - name: Running integration tests
           run: |
             cd ./Integration
-            npx codeceptjs run --steps --reporter mocha-multi
+            npx codeceptjs run --reporter mocha-multi
         - name: Publish Integration Test Results
           uses: EnricoMi/publish-unit-test-result-action@v1.4
           if: ${{ always() }}
