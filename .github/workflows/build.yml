@@ -25,9 +25,9 @@ jobs:
         env:
           DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - uses: actions/checkout@master
+    
         # Result Docker
 
       - name: Build Result Docker Image With Version
