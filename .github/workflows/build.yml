@@ -145,7 +145,7 @@ jobs:
       needs: [deployResult, deployVote, deployWorker]
       steps:
         - uses: actions/checkout@v2
-        - name: Building node modules
+        - name: Building
           run: |
             cd ./Integration
             npm install
@@ -162,6 +162,6 @@ jobs:
             comment_title: Integration Test Statistics
             hide_comments: all but latest
             comment_on_pr: true
-            files: ./Integration/results-Junit/result.xml
+            files: Integration/results-Junit/result.xml
             report_individual_runs: true
             deduplicate_classes_by_file_name: false
