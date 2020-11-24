@@ -28,11 +28,11 @@ button i{
 }
 
 button.a{
-  background-color: #1aaaf8;
+  background-color: #cf40cf;
 }
 
 button.b{
-  background-color: #00cbca;
+  background-color: #f59ddf;
 }
 
 #tip{
@@ -65,7 +65,7 @@ button.b{
 }
 
 #content-container-center h3{
-  color: #254356;
+  color: #562543;
 }
 
 #choice{
@@ -99,19 +99,19 @@ button.b{
 }
 
 #choice button.a:hover{
-  background-color: #1488c6;
+  background-color: #cf40cf;
 }
 
 #choice button.b:hover{
-  background-color: #00a2a1;
+  background-color: #f59ddf;
 }
 
 #choice button.a:focus{
-  background-color: #1488c6;
+  background-color: #cf40cf;
 }
 
 #choice button.b:focus{
-  background-color: #00a2a1;
+  background-color: #f59ddf;
 }
 
 #background-stats{
