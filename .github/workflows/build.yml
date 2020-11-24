@@ -158,10 +158,5 @@ jobs:
           if: ${{ always() }}
           with:
             github_token: ${{ secrets.GIT_TOKEN }}
-            check_name: Integration Test Result
-            comment_title: Integration Test Statistics
-            hide_comments: all but latest
-            comment_on_pr: true
             files: Integration/results-Junit/result.xml
-            report_individual_runs: true
-            deduplicate_classes_by_file_name: false
+       
