@@ -154,8 +154,8 @@ jobs:
             cd ./Integration
             npx codeceptjs run --reporter mocha-multi
         - name: Publish Integration Test Results
-          uses: EnricoMi/publish-unit-test-result-action@v1.5
-          if: always()
+          uses: EnricoMi/publish-unit-test-result-action@v1.4
+          if: ${{ always() }}
           with:
             github_token: ${{ secrets.GIT_TOKEN }}
             check_name: Integration Test Result
