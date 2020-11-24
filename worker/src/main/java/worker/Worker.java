@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 class Worker {
 
-  private static String POSTGRES_HOST = System.getenv("POST_HOST");
+  private static String POSTGRES_HOST = System.getenv("POSTGRES_HOST");
 
   private static String POSTGRES_DB = System.getenv("POSTGRES_DB");
 
