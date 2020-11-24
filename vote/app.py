@@ -12,7 +12,7 @@ hostname = socket.gethostname()
 PORT = int(os.environ.get("PORT", 5000))
 REDIS_PASSWORD= os.environ.get('REDIS_PASSWORD', 'pass')
 REDIS_HOST= os.environ.get('REDIS_HOST', 'host')
-REDIS_PORT= os.environ.get('REDIS_PORT', '5001')
+REDIS_PORT= os.environ.get('REDIS_PORT', '5000')
 
 app = Flask(__name__)
 
