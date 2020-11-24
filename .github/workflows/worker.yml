@@ -19,7 +19,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login
           
-     - name: Setting Vars
+      - name: Setting Vars
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
