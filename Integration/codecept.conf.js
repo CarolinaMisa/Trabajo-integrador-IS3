@@ -9,7 +9,7 @@ exports.config = {
   output: './output',
   helpers: {
     Playwright: {
-      url: 'https://tp-vote.herokuapp.com/',
+      url: '',
       show: true,
       browser: 'chromium'
     }
@@ -18,7 +18,24 @@ exports.config = {
     I: './steps_file.js'
   },
   bootstrap: null,
-  mocha: {},
+  mocha: {
+    "reporterOptions": {
+      "codeceptjs-cli-reporter": {
+        "stdout": "-",
+        "options": {
+          "verbose": true,
+          "steps": true,
+        }
+      },
+      "mocha-junit-reporter": {
+        "stdout": "../Integration/results-Junit/console.log",
+        "options": {
+          "mochaFile": "../Integration/results-Junit/result.xml"
+        },
+        "attachments": true //add screenshot for a failed test
+      }
+    }
+  },
   name: 'Integration',
   plugins: {
     pauseOnFail: {},

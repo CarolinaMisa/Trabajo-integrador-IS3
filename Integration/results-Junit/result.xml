@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="4.414" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2020-11-24T20:28:57" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Result" timestamp="2020-11-24T20:28:57" tests="1" file="/home/carolina/Documentos/trabajo-integrador-is3/Integration/result_test.js" failures="0" time="2.068">
+    <testcase name="Result: Checking results" time="2.068" classname="Checking results">
+    </testcase>
+  </testsuite>
+  <testsuite name="Vote" timestamp="2020-11-24T20:29:00" tests="2" file="/home/carolina/Documentos/trabajo-integrador-is3/Integration/vote_test.js" failures="0" time="2.346">
+    <testcase name="Vote: I choose dogs" time="1.909" classname="I choose dogs">
+    </testcase>
+    <testcase name="Vote: test voting app vote view" time="0.437" classname="test voting app vote view">
+    </testcase>
+  </testsuite>
+</testsuites>

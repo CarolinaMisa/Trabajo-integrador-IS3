@@ -15,10 +15,11 @@
         "@codeceptjs/examples": "^1.2.1",
         "@codeceptjs/ui": "^0.4.2",
         "codeceptjs": "^3.0.1",
+        "mocha": "^6.2.3",
         "playwright": "^1.6.2"
     },
     "dependencies": {
         "chai": "^4.2.0",
-        "mocha": "^8.2.1"
+        "mocha-multi": "^1.1.3"
     }
 }
