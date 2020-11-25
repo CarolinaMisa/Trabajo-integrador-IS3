@@ -157,6 +157,7 @@ jobs:
             cd ./vote
             pip install -r requirements.txt
             python -m unittest
+            python -m xmlrunner --output-file test-reports
             
   integrationTest:
       name: Integration Test
