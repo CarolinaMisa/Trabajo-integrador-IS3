@@ -64,6 +64,11 @@ class Worker {
     }
   }
 
+  
+  public static String strConnectionRedis() {
+    return "redis://default:" + REDIS_PASSWORD + "@" + REDIS_HOST + ":" + REDIS_PORT;
+  }
+  
   static Jedis connectToRedis(Jedis conn) {
     while (true) {
       try {
