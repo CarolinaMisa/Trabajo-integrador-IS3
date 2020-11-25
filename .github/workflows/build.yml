@@ -155,6 +155,7 @@ jobs:
         - name: Install dependencies and run unit test
           run: |
             cd ./vote
+            pip install -r requirements.txt
             python -m unittest
             
   integrationTest:
