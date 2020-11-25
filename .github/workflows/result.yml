@@ -22,7 +22,7 @@ jobs:
           env: 
             HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           run: |
-            heroku config:set POSTGRES_URI=${{ secrets.POSTGRES_URI }} -a tp-result
+            heroku config:set POST_URI=${{ secrets.POSTGRES_URI }} -a tp-result
 
         - name: Build and Push
           env:
