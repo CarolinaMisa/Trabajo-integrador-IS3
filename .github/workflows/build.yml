@@ -1,5 +1,5 @@
 
-name: Build
+name: Build and Deploy
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  result_build:
+  docker:
     name: Build Every Application and Push to DockerHub with Version Tags.
     runs-on: ubuntu-latest
 
@@ -139,6 +139,25 @@ jobs:
             HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           run: heroku container:release -a tp-worker web 
  
+  unitTest:
+      name: Unit Test with Python
+      runs-on: ubuntu-latest
+      needs: [docker]
+      strategy:
+        matrix:
+          python-version: [3.7]
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: ${{ matrix.python-version }}
+        - name: Install dependencies and run unit test
+          run: |
+            cd ./vote
+            cd ./test
+            python -m unittest
+            
   integrationTest:
       name: Integration Test
       runs-on: ubuntu-latest
