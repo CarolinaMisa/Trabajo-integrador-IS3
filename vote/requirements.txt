@@ -3,4 +3,4 @@ Redis
 gunicorn
 requests
 pytest
-
+unittest-xml-reporting
