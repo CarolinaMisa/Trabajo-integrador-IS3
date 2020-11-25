@@ -3,4 +3,5 @@ Redis
 gunicorn
 requests
 pytest
-xmlrunner
+pytest-cov
+coverage
