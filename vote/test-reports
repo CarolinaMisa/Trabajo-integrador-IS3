@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" file="tests.py" name="tests.UnitTest-20201124223825" skipped="0" tests="3" time="2.377" timestamp="2020-11-24T22:38:27">
+		<testcase classname="tests.UnitTest" file="tests.py" line="8" name="test_get_status_200" time="0.938" timestamp="2020-11-24T22:38:26"/>
+		<testcase classname="tests.UnitTest" file="tests.py" line="12" name="test_incomplete_vote_status_400" time="0.675" timestamp="2020-11-24T22:38:27"/>
+		<testcase classname="tests.UnitTest" file="tests.py" line="16" name="test_set_new_cookie" time="0.764" timestamp="2020-11-24T22:38:27"/>
+	</testsuite>
+</testsuites>

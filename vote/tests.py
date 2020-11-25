@@ -1,6 +1,6 @@
 import requests
 import unittest
-
+import xmlrunner
 
 class UnitTest(unittest.TestCase):
     url = 'https://tp-vote.herokuapp.com/'
@@ -17,3 +17,11 @@ class UnitTest(unittest.TestCase):
         payload = {'vote': 'a'}
         response = requests.post(self.url, data=payload)
         assert response.cookies["voter_id"] is not None
+
+
+if __name__ == '__main__':
+    unittest.main(
+        testRunner=xmlrunner.XMLTestRunner(output='test-reports'),
+        # these make sure that some options that are not applicable
+        # remain hidden from the help menu.
+        failfast=False, buffer=False, catchbreak=False)
