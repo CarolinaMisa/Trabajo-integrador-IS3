@@ -6,5 +6,5 @@
 * Como herramienta de CI use GitHub Actions junto con code inspector para analisis de codigo.
 * Finalmente, sera desplegada en Heroku: [Vote](https://tp-vote.herokuapp.com/) - [Results](https://tp-result.herokuapp.com/)
 
-  
+
  
