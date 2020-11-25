@@ -155,7 +155,6 @@ jobs:
         - name: Install dependencies and run unit test
           run: |
             cd ./vote
-            cd ./test
             python -m unittest
             
   integrationTest:
