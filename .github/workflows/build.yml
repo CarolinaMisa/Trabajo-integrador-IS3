@@ -159,7 +159,7 @@ jobs:
             python -m unittest
         - name: Report unit test generator
           run:
-            python -m python -m xmlrunner --output-file test-reports
+            python -m xmlrunner --output-file test-reports
 
             
   integrationTest:
