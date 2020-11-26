@@ -10,7 +10,7 @@ Scenario('I choose dogs', ({ I }) => {
 
 Scenario('test voting app vote view', ({ I }) => {
     I.amOnPage('https://tp-vote.herokuapp.com/');
-    I.see('Cats vs Dogs!')
-    I.see('CATS');
+    I.see('Ducks vs Dogs!')
+    I.see('DUCKS');
     I.see('DOGS');
 });
